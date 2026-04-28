@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+{
+    Schema::create('historique_diplome', function (Blueprint $table) {
+        $table->id('id_historique');
+        $table->string('mention')->nullable();
+        $table->date('date_retrait')->nullable();
+        $table->foreignId('id_diplome')
+              ->constrained('diplomes', 'id_diplome')
+              ->onDelete('cascade');
+        $table->timestamps();
+    });
+}
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('historique_diplome');
+    }
+};
